@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/packages")
-@CrossOrigin("*") // Bach Next.js y-connecta bla machakil
+@CrossOrigin("*") // Mohim bach Next.js y-tconnecta bla machakil
 public class PackageController {
 
     @Autowired
@@ -24,6 +24,15 @@ public class PackageController {
     public List<TravelPackage> getAllPackages() {
         return repository.findAll();
     }
+
+    // --- HADI HIYA LI KANT NAQSAK (FIX ERROR) ---
+    // 1.5. GET: Jib Offre wehda b ID
+    @GetMapping("/{id}")
+    public TravelPackage getPackageById(@PathVariable Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Package non trouvé avec l'ID: " + id));
+    }
+    // ---------------------------------------------
 
     // 2. GET: Jib ghir b Type (Filter simple f URL: ?type=OMRA)
     @GetMapping("/filter")
@@ -37,7 +46,7 @@ public class PackageController {
     public List<TravelPackage> searchPackages(@RequestBody PackageSearchCriteria criteria) {
         // Convertir Criteria -> SQL dynamique
         Specification<TravelPackage> spec = PackageSpecification.getPackagesByCriteria(criteria);
-        
+
         // Executer la recherche
         return repository.findAll(spec);
     }
