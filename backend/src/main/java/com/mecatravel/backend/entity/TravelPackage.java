@@ -1,5 +1,6 @@
 package com.mecatravel.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties; // Import Jdid
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -19,37 +20,35 @@ public class TravelPackage {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    // --- NEW FIELDS ---
-
-    // 1. IMAGES
-    private String mainImageUrl; // Tswira l-kbira d l-offre
+    // IMAGES
+    private String mainImageUrl;
 
     @ElementCollection
     @CollectionTable(name = "package_images", joinColumns = @JoinColumn(name = "package_id"))
     @Column(name = "image_url")
     private List<String> imageUrls = new ArrayList<>();
 
-    // 2. AIRLINE INFO
-    private String airlineName; // Ex: "Turkish Airlines"
-    private String airlineLogoUrl; // Lien logo
+    // AIRLINE INFO
+    private String airlineName;
+    private String airlineLogoUrl;
 
-    // 3. GUIDE (Murchid)
-    private String guideName; // Ex: "Cheikh Ahmed"
-    // (Ila bghiti tswira d guide t9der tzidha hna: private String guideImageUrl;)
+    // GUIDE
+    private String guideName;
 
-    // 4. INCLUSIONS (Services)
+    // INCLUSIONS
     @ElementCollection
     @CollectionTable(name = "package_features", joinColumns = @JoinColumn(name = "package_id"))
     @Column(name = "feature")
-    private List<String> features = new ArrayList<>(); // Ex: ["Visa", "Vol Direct"]
+    private List<String> features = new ArrayList<>();
 
-    // 5. ITINERARY (Programme)
+    // ITINERARY
     @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL)
     private List<PackageItinerary> itinerary = new ArrayList<>();
 
-    // --- EXISTING FIELDS ---
-
+    // OPTIONS
     @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL)
+    // HNA L-FIX: Bach ma-ndkhlouch f boucle (Package -> Option -> Package...)
+    @JsonIgnoreProperties("travelPackage")
     private List<PackageOption> options;
 
     private LocalDate departureDate;

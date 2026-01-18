@@ -7,9 +7,11 @@ import java.util.List;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    // Jib bookings dyl wahed nmra (Ila bgha l-client ychouf dossier dyalo)
+
     List<Booking> findByPhoneNumber(String phoneNumber);
 
-    // Jib bookings b Status (ex: PENDING bach t-traitihom)
     List<Booking> findByStatus(String status);
+
+    // HNA L-FIX: Zidna underscore (_) bach n-specifiw l-field 'email' wst 'user'
+    List<Booking> findByUser_Email(String email);
 }

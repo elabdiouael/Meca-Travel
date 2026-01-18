@@ -6,11 +6,11 @@ import com.mecatravel.backend.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.ArrayList;
 
 @Configuration
 public class DataSeeder {
@@ -19,21 +19,39 @@ public class DataSeeder {
     CommandLineRunner commandLineRunner(
             PackageRepository packageRepository,
             HotelRepository hotelRepository,
-            UserRepository userRepository
+            UserRepository userRepository,
+            PasswordEncoder encoder
     ) {
         return args -> {
-            // N-mss7o data l9dima bach t-t3awd t-bna b tswar jdad (Optional, walakin mzyan f Dev)
-            // packageRepository.deleteAll();
-            // hotelRepository.deleteAll();
+            // 1. SEED USERS (Avec ROLE_ prefix)
+            if (userRepository.count() == 0) {
+                // Créer Admin
+                User admin = new User();
+                admin.setFullName("Admin MecaTravel");
+                admin.setEmail("admin@test.com");
+                admin.setPassword(encoder.encode("123456"));
+                admin.setRole("ROLE_ADMIN"); // FIX: Zidna ROLE_
+                userRepository.save(admin);
 
+                // Créer Client Test
+                User client = new User();
+                client.setFullName("Client Test");
+                client.setEmail("client@test.com");
+                client.setPassword(encoder.encode("123456"));
+                client.setRole("ROLE_CLIENT"); // FIX: Zidna ROLE_
+                userRepository.save(client);
+
+                System.out.println("✅ Users Ajoutés: admin@test.com (ROLE_ADMIN) / client@test.com (ROLE_CLIENT)");
+            }
+
+            // 2. SEED PACKAGES & HOTELS
             if (packageRepository.count() == 0) {
-                // 1. Hotels
+                // Hotels
                 Hotel hilton = new Hotel();
                 hilton.setName("Hilton Suites Makkah");
                 hilton.setCity("MAKKAH");
                 hilton.setStars(5);
                 hilton.setDistanceFromHaram("50m");
-                // Tswira Makkah
                 hilton.setMainImageUrl("https://images.unsplash.com/photo-1565552629477-e254f3a367c9?q=80&w=1000&auto=format&fit=crop");
                 hilton.setImageUrls(List.of(
                         "https://images.unsplash.com/photo-1564769662533-4f00a87b4056?q=80&w=1000",
@@ -45,12 +63,11 @@ public class DataSeeder {
                 movenpick.setCity("MADINA");
                 movenpick.setStars(5);
                 movenpick.setDistanceFromHaram("100m");
-                // Tswira Madina
                 movenpick.setMainImageUrl("https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=1000&auto=format&fit=crop");
 
                 hotelRepository.saveAll(List.of(hilton, movenpick));
 
-                // 2. Offre Omra
+                // Offre Omra
                 TravelPackage omra = new TravelPackage();
                 omra.setTitle("Omra Ramadan 2025 - VIP");
                 omra.setDescription("Profitez d'une Omra spirituelle inoubliable avec un accompagnement religieux complet et des hôtels 5 étoiles face au Haram.");
@@ -76,7 +93,7 @@ public class DataSeeder {
                         "Accompagnement Religieux 24/7"
                 ));
 
-                // 3. Itinerary (Programme)
+                // Itinerary
                 PackageItinerary day1 = new PackageItinerary();
                 day1.setDayNumber(1);
                 day1.setTitle("Départ du Maroc");
@@ -103,7 +120,7 @@ public class DataSeeder {
 
                 omra.setItinerary(List.of(day1, day2, day3, day4));
 
-                // 4. PRICING OPTIONS
+                // Pricing Options
                 PackageOption optQuad = new PackageOption();
                 optQuad.setRoomType(RoomType.QUADRUPLE);
                 optQuad.setPricePerPerson(BigDecimal.valueOf(14500));
@@ -121,10 +138,8 @@ public class DataSeeder {
 
                 omra.setOptions(List.of(optQuad, optTriple, optDouble));
 
-                // Save Everything
+                // Save
                 packageRepository.save(omra);
-
-                System.out.println("✅ Data Seeding Complet: Omra Ramadan ajoutée avec succès !");
             }
         };
     }

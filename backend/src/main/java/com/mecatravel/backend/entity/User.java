@@ -1,5 +1,6 @@
 package com.mecatravel.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore; // Import
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,7 +17,9 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    // HNA L-FIX: Zidna @JsonIgnore bach maybanche l-password f JSON response
+    @JsonIgnore
     private String password;
 
-    private String role; // "ADMIN" or "CLIENT"
+    private String role; // "ROLE_ADMIN" or "ROLE_CLIENT"
 }

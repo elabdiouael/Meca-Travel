@@ -1,6 +1,5 @@
 package com.mecatravel.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mecatravel.backend.enums.RoomType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,6 +21,6 @@ public class PackageOption {
 
     @ManyToOne
     @JoinColumn(name = "package_id")
-    @JsonIgnore // Bach ma ndkhlouch f boucle infini
+    // HNA L-FIX: 7iyydna @JsonIgnore bach tban smiyet l-package f Dashboard
     private TravelPackage travelPackage;
 }
