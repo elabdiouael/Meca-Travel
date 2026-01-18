@@ -1,5 +1,6 @@
 package com.mecatravel.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mecatravel.backend.enums.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,18 +19,20 @@ public class Booking {
     private String email;
     private int numberOfPeople;
 
-    // HNA L-CHANGEMENT: Status Enum
     @Enumerated(EnumType.STRING)
     private BookingStatus status = BookingStatus.PENDING;
 
     private LocalDateTime bookingDate = LocalDateTime.now();
 
-    // HNA L-CHANGEMENT: L-Client kay-khtar Option (Ex: Omra b Chambre Double)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER) // FIX: Eager bach yjib l-option dima
     @JoinColumn(name = "option_id")
+    // FIX: Nsa 'travelPackage' hna bach yban f Dashboard, walakin ignoré proxies
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private PackageOption packageOption;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    // FIX: Ignorer user details bach mayt9lch l-response (Dashboard kayhtaj ghir email li deja f booking)
+    @JsonIgnoreProperties({"password", "bookings", "hibernateLazyInitializer", "handler"})
     private User user;
 }
