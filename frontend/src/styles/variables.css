@@ -1,0 +1,11 @@
+:root {
+    --primary-gold: #D4AF37;
+    --primary-gold-hover: #B5952F;
+    --deep-blue: #0F172A;
+    --soft-cream: #F9F9F7;
+    --text-dark: #1A1A1A;
+    --text-gray: #666666;
+    --white: #FFFFFF;
+    --border-radius: 12px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }

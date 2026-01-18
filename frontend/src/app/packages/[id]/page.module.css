@@ -1,0 +1,92 @@
+.container {
+    background-color: var(--soft-cream);
+    min-height: 100vh;
+    padding-bottom: 50px;
+  }
+  
+  .headerImage {
+    position: relative;
+    height: 50vh;
+    width: 100%;
+  }
+  
+  .img {
+    object-fit: cover;
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 40px 10%;
+    color: white;
+  }
+  
+  .overlay h1 {
+    font-size: 3rem;
+    margin: 0;
+  }
+  
+  .contentGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: -50px auto 0;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .section {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+  }
+  
+  .section h2 {
+    color: var(--deep-blue);
+    border-bottom: 2px solid var(--primary-gold);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+  
+  .features {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .hotels {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .hotelCard {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .hotelCard img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  @media (max-width: 768px) {
+    .contentGrid {
+      grid-template-columns: 1fr;
+    }
+  }

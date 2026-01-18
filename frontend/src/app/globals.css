@@ -1,0 +1,11 @@
+@import '../styles/variables.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: var(--soft-cream);
+  color: var(--text-dark);
+  font-family: 'Arial', sans-serif; /* T9der tbeddel l font mn b3d */
+}

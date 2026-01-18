@@ -1,0 +1,88 @@
+.card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .imageWrapper {
+    position: relative;
+    height: 250px;
+    width: 100%;
+  }
+  
+  .image {
+    object-fit: cover;
+  }
+  
+  .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--primary-gold);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
+  .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--deep-blue);
+  }
+  
+  .airlineLogo {
+    height: 30px;
+    width: auto;
+  }
+  
+  .dates {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+  }
+  
+  .footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+  }
+  
+  .price {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .price span {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+  }
+  
+  .price strong {
+    color: var(--primary-gold);
+    font-size: 1.2rem;
+  }

@@ -1,0 +1,30 @@
+.btn {
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
+  }
+  
+  .primary {
+    background-color: var(--primary-gold);
+    color: var(--white);
+  }
+  
+  .primary:hover {
+    background-color: var(--primary-gold-hover);
+    transform: translateY(-2px);
+  }
+  
+  .outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-gold);
+    color: var(--primary-gold);
+  }
+  
+  .outline:hover {
+    background-color: var(--primary-gold);
+    color: var(--white);
+  }
